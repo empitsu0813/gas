@@ -1,6 +1,7 @@
 /**
  * main
  * スプレッドシートの変更を検知する
+ * A列に追加があったときに、追加された内容をメールする
  */
 function postChange(e) {
   var value = getValue(e)
@@ -12,8 +13,8 @@ function postChange(e) {
  */
 function notification(value) {
   var parameters = {
-    to: 'hoge@gmail.com',
-    subject: value.title,
+    to: 'takahashiry.0813@gmail.com',
+    subject: value.subject,
     body: value.body
   }
   MailApp.sendEmail(parameters)
@@ -27,12 +28,22 @@ function getValue() {
   var sheet = SpreadsheetApp.getActiveSheet()
   // アクティブなセルを取得
   var cell = sheet.getActiveCell()
+  // 本文
+  var body = ''
 
-  var title = 'A' + cell.getRow()
-  var value = {
-    title: '「' + sheet.getName() + '」シートに変更があります。',
-    body: sheet.getRange(title).getValue() + 'が' + cell.getValue() + 'に変更されました。'
+  if (cell.getColumn() !== 1) return null
+
+  // スプレッドシートの形式によって変更する必要あり
+  var heading = sheet.getRange('A1:L1').getValues()
+  var content = sheet.getRange('A' + cell.getRow() + ':L' + cell.getRow()).getValues()
+
+  for(var i = 0; heading[0].length > i; i++) {
+    var tmp = content[0][i] ? content[0][i] : '未記入'
+    body += '【' + heading[0][i] + '】' + '\n' + tmp + '\n\n'
   }
 
-  return value
+  return {
+    subject: '「' + sheet.getName() + '」に追加があります',
+    body: body
+  }
 }
