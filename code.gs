@@ -12,6 +12,8 @@ function postChange(e) {
  * スプレッドシートの変更を通知する
  */
 function notification(value) {
+  // 複数の宛先を設定したい場合は、カンマで区切ってください。
+  // 例: to = 'hoge@gmail.com,piyo@gmail.com'
   var to = 'hoge@gmail.com'
   var parameters = {
     to: to,
