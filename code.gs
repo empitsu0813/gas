@@ -12,8 +12,9 @@ function postChange(e) {
  * スプレッドシートの変更を通知する
  */
 function notification(value) {
+  var to = 'hoge@gmail.com'
   var parameters = {
-    to: 'takahashiry.0813@gmail.com',
+    to: to,
     subject: value.subject,
     body: value.body
   }
