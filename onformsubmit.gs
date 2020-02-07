@@ -7,7 +7,7 @@ function onFormSubmit(e) {
   // 例: to: 'hoge@gmail.com,piyo@gmail.com
   var value = {
     to: 'takahashiry.0813@gmail.com',
-    subject: '「' + SpreadsheetApp.getActiveSheet().getName() + '」にお問い合わせがあります。',
+    subject: '「' + SpreadsheetApp.getActiveSpreadsheet().getName() + '」にお問い合わせがあります。',
     body: '以下の内容でお問い合わせがありました。\n\n'
   }
 
